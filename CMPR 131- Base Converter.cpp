@@ -95,7 +95,7 @@ int newIntInput()
 void baseConversionSingle(int num1)
 {
 
-	int base = inputInteger("Enter the base to convert your number to (2..36): ", 62, 36);
+	int base = inputInteger("Enter the base to convert your number to (2..36): ", 2, 36);
 	string binaryNumber = "";
 	char hex;
 	int tempNum = num1;
