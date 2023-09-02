@@ -2,6 +2,7 @@
 #include <iomanip>
 #include <fstream>
 #include <string>
+#include <cmath>
 #include "input.h"
 
 using namespace std;
@@ -100,7 +101,7 @@ void baseConversionSingle(int num1)
 	int tempNum = num1;
 	do
 	{
-		int remainder = num1 % base;
+		int remainder = abs(num1) % base;
 
 		num1 /= base;
 
@@ -116,11 +117,15 @@ void baseConversionSingle(int num1)
 		} 
 
 	} while (num1 >= base);
-	if (num1 > 9)
+	if (abs(num1) > 9)
 	{
-		hex = num1 + 55;
+		hex = abs(num1) + 55;
 		string hexNum(1, hex);
 		binaryNumber.insert(0, hexNum);
+		if (tempNum < 0)
+		{
+			binaryNumber.insert(0, "-");
+		}
 	}
 	else if (num1 != 0)
 	{
@@ -155,7 +160,7 @@ void baseConversionAll(int num1)
 		num1 = tempNum;
 		do
 		{
-			int remainder = num1 % base;
+			int remainder = abs(num1) % base;
 			num1 /= base;
 			if (remainder > 9)
 			{
@@ -168,11 +173,15 @@ void baseConversionAll(int num1)
 				binaryNumber.insert(0, to_string(remainder));
 			}
 		} while (num1 >= base);
-		if (num1 > 9)
+		if (abs(num1) > 9)
 		{
-			hex = num1 + 55;
+			hex = abs(num1) + 55;
 			string hexNum(1, hex);
 			binaryNumber.insert(0, hexNum);
+			if (tempNum < 0)
+			{
+				binaryNumber.insert(0, "-");
+			}
 		}
 		else if (num1 != 0)
 		{
