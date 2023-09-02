@@ -116,7 +116,7 @@ void baseConversionSingle(int num1)
 			binaryNumber.insert(0, to_string(remainder));
 		} 
 
-	} while (num1 >= base);
+	} while (abs(num1) >= base);
 	if (abs(num1) > 9)
 	{
 		hex = abs(num1) + 55;
@@ -130,10 +130,6 @@ void baseConversionSingle(int num1)
 	else if (num1 != 0)
 	{
 		binaryNumber.insert(0, to_string(num1));
-	}
-	if (tempNum < 0 && num1 >= 0)
-	{
-			binaryNumber.insert(0, "-");
 	}
 
 
