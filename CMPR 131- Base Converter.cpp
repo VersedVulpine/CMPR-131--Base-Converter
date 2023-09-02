@@ -1,14 +1,15 @@
 #include <iostream>
 #include <iomanip>
 #include <fstream>
-#include <string>
-#include <cmath>
+#include <string> //string
+#include <cmath> //absolute value 
+#include <cctype> //for the toupper validation
 #include "input.h"
 
 using namespace std;
 
 void baseConverterMenu(); //Part 2 Main menu
-int baseConverterMenuOption(); //Introduction UI
+char baseConverterMenuOption(); //Introduction UI
 int newIntInput(); // Option 1 in UI
 void baseConversionSingle(int num1); //Option 2 in UI
 void baseConversionAll(int num1); // Option 3 in UI
@@ -46,9 +47,9 @@ void baseConverterMenu()
 		switch (baseConverterMenuOption())
 		{
 		case 0: return; break;
-		case 1: num1 = newIntInput(); break;
-		case 2: baseConversionSingle(num1); break;
-		case 3: baseConversionAll(num1); break;
+		case 'A': num1 = newIntInput(); break;
+		case 'B': baseConversionSingle(num1); break;
+		case 'C': baseConversionAll(num1); break;
 		default: cout << "\t\tERROR - Invalid option. Please re-enter."; break;
 		}
 		cout << "\n";
@@ -59,21 +60,21 @@ void baseConverterMenu()
 //This is the intro text for the Main Menu for Part 2
 // Precondition: None
 // Postcondition: Returns Text for UI
-int baseConverterMenuOption()
+char baseConverterMenuOption()
 {
 	system("cls");
 	cout << "CMPR131 Part 2. Base Converter" << endl;
 	cout << "2: Base Converter" << endl;
 	cout << string(100, char(205)) << endl;
 
-	cout << "1. Enter an Integer Number (Base 10)" << endl;
-	cout << "2. Specify the converting Base" << endl;
-	cout << "3. Display All Converted Bases" << endl;
+	cout << "A. Enter an Integer Number (Base 10)" << endl;
+	cout << "B. Specify the converting Base" << endl;
+	cout << "C. Display All Converted Bases" << endl;
 	cout << string(100, char(196)) << endl;
 
 	cout << "0. Return" << endl;
 	cout << string(100, char(205)) << endl;
-	int option = inputInteger("Option : ", 0, 3);
+	char option = toupper(inputChar("Option : ","AaBbCc0"));
 	return option;
 }
 
