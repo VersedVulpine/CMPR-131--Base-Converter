@@ -168,7 +168,7 @@ void baseConversionAll(int num1)
 			{
 				binaryNumber.insert(0, to_string(remainder));
 			}
-		} while (num1 >= base);
+		} while (abs(num1) >= base);
 		if (abs(num1) > 9)
 		{
 			hex = abs(num1) + 55;
