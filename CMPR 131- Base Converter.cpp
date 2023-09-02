@@ -42,14 +42,15 @@ int main()
 void baseConverterMenu() 
 {
 	int num1 = -1;
+	bool numInput = false;
 	do
 	{
 		switch (baseConverterMenuOption())
 		{
 		case 0: return; break;
-		case 'A': num1 = newIntInput(); break;
-		case 'B': baseConversionSingle(num1); break;
-		case 'C': baseConversionAll(num1); break;
+		case 'A':  num1 = newIntInput(); numInput = true; break;
+		case 'B': if (!numInput) { cout << "No integer has been entered."; break; } baseConversionSingle(num1); break;
+		case 'C': if (!numInput) { cout << "No integer has been entered."; break; } baseConversionAll(num1); break;
 		default: cout << "\t\tERROR - Invalid option. Please re-enter."; break;
 		}
 		cout << "\n";
