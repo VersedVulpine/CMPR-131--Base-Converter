@@ -5,7 +5,6 @@
 #include <cmath> //absolute value 
 #include <cctype> //for the toupper validation
 #include "input.h"
-
 using namespace std;
 
 void baseConverterMenu(); //Part 2 Main menu
@@ -14,7 +13,10 @@ int newIntInput(); // Option 1 in UI
 void baseConversionSingle(int num1); //Option 2 in UI
 void baseConversionAll(int num1); // Option 3 in UI
 
+//BUG: Input a string of chars before a interger
 
+
+//this is temp until merged to Project
 int main()
 {
 	do
@@ -37,11 +39,11 @@ int main()
 }
 
 //This is the Main menu for Part 2. It will return back to the Assignment 1 once it is done.
-// Precondition: 
-// Postcondition:
+// Precondition: None
+// Postcondition: returns nothing
 void baseConverterMenu() 
 {
-	int num1 = -1;
+	int num1;
 	bool numInput = false;
 	do
 	{
@@ -49,18 +51,18 @@ void baseConverterMenu()
 		{
 		case 0: return; break;
 		case 'A':  num1 = newIntInput(); numInput = true; break;
-		case 'B': if (!numInput) { cout << "No integer has been entered."; break; } baseConversionSingle(num1); break;
-		case 'C': if (!numInput) { cout << "No integer has been entered."; break; } baseConversionAll(num1); break;
-		default: cout << "\t\tERROR - Invalid option. Please re-enter."; break;
+		case 'B': if (!numInput) { cout << "ERROR - No integer has been entered."; break; } baseConversionSingle(num1); break;
+		case 'C': if (!numInput) { cout << "ERROR - No integer has been entered."; break; } baseConversionAll(num1); break;
+		default: cout << "ERROR - Invalid option. Please Enter A, B, C, or 0."; break;
 		}
-		cout << "\n";
+		cout << endl;
 		system("pause");
 	} while (true);
 }
 
 //This is the intro text for the Main Menu for Part 2
 // Precondition: None
-// Postcondition: Returns Text for UI
+// Postcondition: Returns ToUpper Char for menu 
 char baseConverterMenuOption()
 {
 	system("cls");
@@ -92,12 +94,8 @@ int newIntInput()
 // Postcondition: Returns the Integer and its converted Base
 void baseConversionSingle(int num1)
 {
-	if (num1 == -1)
-	{
-		cout << "No integer has been entered. Please Choose option 1 to enter a base 10 integer.";
-		return;
-	}
-	int base = inputInteger("Enter the base to convert your number to (2..36): ", 2, 36);
+
+	int base = inputInteger("Enter the base to convert your number to (2..36): ", 62, 36);
 	string binaryNumber = "";
 	char hex;
 	int tempNum = num1;
@@ -143,11 +141,6 @@ void baseConversionSingle(int num1)
 // Postcondition: Outputs the Integer and the list of all converted Bases
 void baseConversionAll(int num1)
 {
-	if (num1 == -1)
-	{
-		cout << "No integer has been entered. Please Choose option 1 to enter a base 10 integer.";
-		return;
-	}
 
 	int tempNum = num1;
 	char hex;
@@ -190,15 +183,3 @@ void baseConversionAll(int num1)
 		binaryNumber.clear();
 	}
 }
-
-
-
-
-
-
-
-
-
-
-
-
