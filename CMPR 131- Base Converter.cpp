@@ -140,7 +140,10 @@ void baseConversionSingle(int num1)
 	{
 		binaryNumber.insert(0, to_string(num1));
 	}
-
+	else if (tempNum < 0 && num1 == 0)//if the integer inputed was negative, then the negative sign would be added at the end
+	{
+		binaryNumber.insert(0, "-");
+	}
 
 	cout << tempNum << " (Base of 10) = " << binaryNumber << " (Base of " << base << ")" << endl;
 }
@@ -186,6 +189,10 @@ void baseConversionAll(int num1)
 		else if (num1 != 0)
 		{
 			binaryNumber.insert(0, to_string(num1));
+		}
+		else if (tempNum < 0 && num1 == 0)//if the integer inputed was negative, then the negative sign would be added at the end
+		{
+			binaryNumber.insert(0, "-");
 		}
 
 		cout << binaryNumber << " (Base of " << base << ")" << endl;
