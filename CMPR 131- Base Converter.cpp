@@ -1,38 +1,46 @@
+/*
+* 
+Hello this is a base convertion calculator written in C++ This was written by Saul Merino and John Kim. Special thanks to Erik Santana for QA checks. 
+
+There are three options that will be given once it is called. The user is prompted to selected their option, or exit out of this calcualtor.
+
+The user will be given a choice on what options to pick. in the first option, the user is prompted.
+to enter an integer value, either positive or negative, in the decimal system. This will be stored for later use.
+
+Note that if the user does not input an integer for calculation, then the program will prompt the user to enter one before continuing.
+
+In the second option, the user is prompted to input a base from from binary [2], to all the way to hexatrigesimal [36]
+then it will display the converted number to the appropriate base with characters and negative numbers, if needed.
+
+In the third option, the program will automaticly calculate and display all possible  base conversions
+from binary [2], to all the way to hexatrigesimal [36] in one list with the integer the user inputed.
+
+*/
+
 #include <iostream>
 #include <iomanip>
-#include <fstream>
-#include <string> //string
-#include <cmath> //absolute value 
-#include <cctype> //for the toupper validation
+#include <fstream>	//for read write files
+#include <string>	//for strings
+#include <cmath>	//for absolute value calculations
+#include <cctype>	//for the toupper validation
 #include "input.h"
 using namespace std;
 
-void baseConverterMenu(); //Part 2 Main menu
-char baseConverterMenuOption(); //Introduction UI
-int newIntInput(); // Option 1 in UI
-void baseConversionSingle(int num1); //Option 2 in UI
-void baseConversionAll(int num1); // Option 3 in UI
-
-//BUG: Input a string of chars before a interger
+void baseConverterMenu();			 //Part 2 Main menu
+char baseConverterMenuOption();		 //Introduction UI
+int newIntInput();					 //Option A in UI
+void baseConversionSingle(int num1); //Option B in UI
+void baseConversionAll(int num1);	 //Option C in UI
 
 
-//this is temp until merged to Project
+
+//this is temporary example of how this will run  until merged to Project
 int main()
 {
 	do
 	{
-
 		baseConverterMenu();
-	/*	switch (menuOption())
-		{
-		case 0: exit(1); break;
-		case 1: break;
-		case 2: baseConverterMenu(); break;
-		case 3: break;
-		default: cout << "\t\tERROR - Invalid option. Please re-enter."; break;
-		}
-		cout << "\n";
-		system("pause");*/
+
 	} while (true);
 
 	return EXIT_SUCCESS;
@@ -40,20 +48,20 @@ int main()
 
 //This is the Main menu for Part 2. It will return back to the Assignment 1 once it is done.
 // Precondition: None
-// Postcondition: returns nothing
+// Postcondition: returns the called function, depending on what case input was selected.
 void baseConverterMenu() 
 {
-	int num1; //This is number that is used in all the calculations. 
+	int userNum1; //This is number that is used in all the calculations. 
 	bool numInput = false; // this will prevent the program from runnning without an intergr placed in 
 	do
 	{
-		switch (baseConverterMenuOption()) //this will call the main menu, the output a 
+		switch (baseConverterMenuOption()) //this will call the main menu, the char output then triggers the switch
 		{
-		case '0': return; break;
-		case 'A':  num1 = newIntInput(); numInput = true; break;
-		case 'B': if (!numInput) { cout << "ERROR - No integer has been entered."; break; } baseConversionSingle(num1); break;
-		case 'C': if (!numInput) { cout << "ERROR - No integer has been entered."; break; } baseConversionAll(num1); break;
-		default: cout << "ERROR - Invalid option. Please Enter A, B, C, or 0."; break;
+		case '0': return; break;										//This is to exit this program, and return to the main menu
+		case 'A':  userNum1 = newIntInput(); numInput = true; break;	//This is A. Enter an Integer Number (Base 10) once this is triggered once, then it will allow user to access other two options
+		case 'B': if (!numInput) { cout << "ERROR - No integer has been entered."; break; } baseConversionSingle(userNum1); break;  //this is Option B. Specify the converting Base. It cannot run without running option A at least once.
+		case 'C': if (!numInput) { cout << "ERROR - No integer has been entered."; break; } baseConversionAll(userNum1); break;		//this is Option C. Display All Converted Base. It cannot run without running option A at least once.
+		default: cout << "ERROR - Invalid option. Please Enter A, B, C, or 0."; break;												//if anything else, then it will look again
 		}
 		cout << endl;
 		system("pause");
@@ -62,7 +70,7 @@ void baseConverterMenu()
 
 //This is the intro text for the Main Menu for Part 2
 // Precondition: None
-// Postcondition: Returns an uppercase of the option (char)
+// Postcondition: Returns a (char), or an uppercase of the option (char)
 char baseConverterMenuOption()    
 {
 	system("cls");
@@ -83,7 +91,7 @@ char baseConverterMenuOption()
 
 //This is where to get the Number for the calculations 
 // Precondition: User picks Option "1"
-// Postcondition: Returns an Integer Positive for calculations on option 2 and 3
+// Postcondition: Returns a validated Integer 
 int newIntInput()	
 {
 	return inputInteger("Enter An Integer in Base 10: ");
@@ -95,39 +103,40 @@ int newIntInput()
 void baseConversionSingle(int num1)
 {
 
-	int base = inputInteger("Enter the base to convert your number to (2..36): ", 2, 36);
+	int base = inputInteger("Enter the base to convert your number to (2..36): ", 2, 36);	//this is the intro and asks for what base to calculate in
 	string binaryNumber = "";
-	char hex;
+	char hex;					//this is to hold an integer-turned to char for string input.
 	int tempNum = num1;
+
 	do
 	{
-		int remainder = abs(num1) % base;
+		int remainder = abs(num1) % base; 
 
 		num1 /= base;
 
-		if (remainder > 9)
+		if (remainder > 9)																	//this is where numeric values that exteed our decimal system get translated to the appropiate base.
 		{
-			hex = remainder + 55;
-			string hexNum(1, hex);
-			binaryNumber.insert(0, hexNum);
+			hex = remainder + 55;															//the 'exteeded' value is converted to the ascii binary code. For example 
+			string hexNum(1, hex);															// the array is advanced
+			binaryNumber.insert(0, hexNum);													// the now converted value is then added to the string
 		}
-		else
+		else //if the numeric value was between 0-9, it directly puts it in.
 		{
 			binaryNumber.insert(0, to_string(remainder));
 		} 
 
 	} while (abs(num1) >= base);
-	if (abs(num1) > 9)
+	if (abs(num1) > 9) 
 	{
 		hex = abs(num1) + 55;
 		string hexNum(1, hex);
 		binaryNumber.insert(0, hexNum);
-		if (tempNum < 0)
+		if (tempNum < 0)//if the integer inputed was negative, then the negative sign would be added at the end
 		{
 			binaryNumber.insert(0, "-");
 		}
 	}
-	else if (num1 != 0)
+	else if (num1 != 0) // this is if the number is too small and can fit in the base.
 	{
 		binaryNumber.insert(0, to_string(num1));
 	}
@@ -137,12 +146,12 @@ void baseConversionSingle(int num1)
 }
 
 //This is where the program calculates their number in all the bases. It lists out all the base conversion from binary [2], to all the way to hexatrigesimal [36] in one list.
-// Precondition: User pick Option "3"
+// Precondition: Integer (Positve or Negative)
 // Postcondition: Outputs the Integer and the list of all converted Bases
 void baseConversionAll(int num1)
 {
 
-	int tempNum = num1;
+	int tempNum = num1; //this is just to hold the  for a moment.
 	char hex;
 	cout << "Your number is " << num1 << "." << endl;
 	string binaryNumber = "";
