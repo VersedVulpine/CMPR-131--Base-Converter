@@ -43,13 +43,13 @@ int main()
 // Postcondition: returns nothing
 void baseConverterMenu() 
 {
-	int num1;
-	bool numInput = false;
+	int num1; //This is number that is used in all the calculations. 
+	bool numInput = false; // this will prevent the program from runnning without an intergr placed in 
 	do
 	{
-		switch (baseConverterMenuOption())
+		switch (baseConverterMenuOption()) //this will call the main menu, the output a 
 		{
-		case 0: return; break;
+		case '0': return; break;
 		case 'A':  num1 = newIntInput(); numInput = true; break;
 		case 'B': if (!numInput) { cout << "ERROR - No integer has been entered."; break; } baseConversionSingle(num1); break;
 		case 'C': if (!numInput) { cout << "ERROR - No integer has been entered."; break; } baseConversionAll(num1); break;
@@ -62,8 +62,8 @@ void baseConverterMenu()
 
 //This is the intro text for the Main Menu for Part 2
 // Precondition: None
-// Postcondition: Returns ToUpper Char for menu 
-char baseConverterMenuOption()
+// Postcondition: Returns an uppercase of the option (char)
+char baseConverterMenuOption()    
 {
 	system("cls");
 	cout << "CMPR131 Part 2. Base Converter" << endl;
@@ -77,20 +77,20 @@ char baseConverterMenuOption()
 
 	cout << "0. Return" << endl;
 	cout << string(100, char(205)) << endl;
-	char option = toupper(inputChar("Option : ","AaBbCc0"));
+	char option = toupper(inputChar("Option: "));
 	return option;
 }
 
-//This is where get the Number for the calculations
+//This is where to get the Number for the calculations 
 // Precondition: User picks Option "1"
 // Postcondition: Returns an Integer Positive for calculations on option 2 and 3
-int newIntInput()
+int newIntInput()	
 {
 	return inputInteger("Enter An Integer in Base 10: ");
 }
 
 //This is where the user can choose what base to calculate their number. It is limited in range from binary [2] all the way to hexatrigesimal [36]
-// Precondition: User picks Option "2" , and 
+// Precondition: Valid Integer
 // Postcondition: Returns the Integer and its converted Base
 void baseConversionSingle(int num1)
 {
