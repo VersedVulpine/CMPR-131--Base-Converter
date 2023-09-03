@@ -1,6 +1,6 @@
 /*
-* 
-Hello this is a base convertion calculator written in C++ This was written by Saul Merino and John Kim. Special thanks to Erik Santana for QA checks. 
+*
+Hello this is a base convertion calculator written in C++ This was written by Saul Merino and John Kim. Special thanks to Erik Santana for QA checks.
 
 There are three options that will be given once it is called. The user is prompted to selected their option, or exit out of this calcualtor.
 
@@ -49,7 +49,7 @@ int main()
 //This is the Main menu for Part 2. It will return back to the Assignment 1 once it is done.
 // Precondition: None
 // Postcondition: returns the called function, depending on what case input was selected.
-void baseConverterMenu() 
+void baseConverterMenu()
 {
 	int userNum1; //This is number that is used in all the calculations. 
 	bool numInput = false; // this will prevent the program from runnning without an intergr placed in 
@@ -71,7 +71,7 @@ void baseConverterMenu()
 //This is the intro text for the Main Menu for Part 2
 // Precondition: None
 // Postcondition: Returns a (char), or an uppercase of the option (char)
-char baseConverterMenuOption()    
+char baseConverterMenuOption()
 {
 	system("cls");
 	cout << "CMPR131 Part 2. Base Converter" << endl;
@@ -92,7 +92,7 @@ char baseConverterMenuOption()
 //This is where to get the Number for the calculations 
 // Precondition: User picks Option "1"
 // Postcondition: Returns a validated Integer 
-int newIntInput()	
+int newIntInput()
 {
 	return inputInteger("Enter An Integer in Base 10: ");
 }
@@ -110,7 +110,7 @@ void baseConversionSingle(int num1)
 
 	do
 	{
-		int remainder = abs(num1) % base; 
+		int remainder = abs(num1) % base;
 
 		num1 /= base;
 
@@ -123,10 +123,10 @@ void baseConversionSingle(int num1)
 		else //if the numeric value was between 0-9, it directly puts it in.
 		{
 			binaryNumber.insert(0, to_string(remainder));
-		} 
+		}
 
 	} while (abs(num1) >= base);
-	if (abs(num1) > 9) 
+	if (abs(num1) > 9)
 	{
 		hex = abs(num1) + 55;
 		string hexNum(1, hex);
@@ -140,7 +140,10 @@ void baseConversionSingle(int num1)
 	{
 		binaryNumber.insert(0, to_string(num1));
 	}
-
+	else if (tempNum < 0 && num1 == 0)//if the integer inputed was negative, then the negative sign would be added at the end
+	{
+		binaryNumber.insert(0, "-");
+	}
 
 	cout << tempNum << " (Base of 10) = " << binaryNumber << " (Base of " << base << ")" << endl;
 }
@@ -186,6 +189,10 @@ void baseConversionAll(int num1)
 		else if (num1 != 0)
 		{
 			binaryNumber.insert(0, to_string(num1));
+		}
+		else if (tempNum < 0 && num1 == 0)//if the integer inputed was negative, then the negative sign would be added at the end
+		{
+			binaryNumber.insert(0, "-");
 		}
 
 		cout << binaryNumber << " (Base of " << base << ")" << endl;
